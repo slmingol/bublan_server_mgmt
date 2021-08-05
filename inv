@@ -1,3 +1,17 @@
 k8s-02[a:f].bub.lan
 pi-vpn.bub.lan
 watcher.bub.lan
+
+## orientation
+##
+##    01U - front to back
+##      - k8s-02c
+##      - pi-vpn
+##      - k8s-02a
+##      - k8s-02b
+##
+##    03U - left to right
+##      - k8s-02d
+##      - k8s-02e
+##      - k8s-02f
+
