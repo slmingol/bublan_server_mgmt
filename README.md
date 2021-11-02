@@ -5,12 +5,16 @@
 ```
 $ tree
 .
+├── LICENSE
 ├── Makefile
 ├── README.md
 ├── inv
+├── rack_equipment_info
+│   ├── hw_dimensions.txt
+│   └── navepoint_9u_rack.txt
 └── update.yml
 
-0 directories, 4 files
+1 directory, 7 files
 ```
 
 ## Options to drive
