@@ -1,0 +1,8 @@
+sizes
+-----
+- US-8-60W      - Dimensions: 1.21"H x 5.83"W x 3.92"D  -   unifi 8 port switch
+- US-8-150W     - Dimensions: 9.25"H x 8.03"W x 1.69"D  -   unifi 8 port switch
+- DGS-1005P     - 4 x 4 x 1.13 inches                   -   D-Link 5 port switch
+- Q575G6-S05    - 7.36 x 4.37 x 1.97 inches             -   Qotom Q575G6-S05 i7 7500U 6 port F/W router
+
+
