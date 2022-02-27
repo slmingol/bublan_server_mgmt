@@ -1,4 +1,5 @@
-k8s-02[a:f].bub.lan
+#k8s-02[a:f].bub.lan
+k8s-02[a:e].bub.lan
 pi-vpn.bub.lan
 watcher.bub.lan
 pi-hole[1:2].bub.lan
