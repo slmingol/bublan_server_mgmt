@@ -27,11 +27,16 @@ uptime:
         ansible -i inv -m shell -a uptime all
 
 apt-upgrade1:
-        ansible -i inv -m shell -a "apt update; apt upgrade" -b all
+        ansible-playbook -i inv -b update.yml
 
 apt-upgrade2:
-        ansible-playbook -i inv -b update.yml
+        ansible -i inv -m shell -a "apt update; apt upgrade" -b all
 
 reboot-k8s:
         ansible -i inv -m shell -a reboot -b all -l k8s*
+```
+
+## Example
+```
+$ make apt-upgrade1
 ```
