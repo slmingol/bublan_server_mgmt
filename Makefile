@@ -17,3 +17,10 @@ apt-upgrade2:
 
 reboot-k8s:
 	ansible -i inv -m shell -a reboot -b all -l k8s*
+
+.SILENT:
+chk-poe-fans:
+	ansible -i inv -m shell \
+		-a 'vcgencmd measure_temp; echo "cur_state:" && cat /sys/class/thermal/cooling_device0/cur_state' -b all -l k8s*,pi-vpn* -o \
+		| sed 's/\\n/ /g' \
+		| column -t

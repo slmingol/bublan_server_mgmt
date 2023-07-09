@@ -41,6 +41,56 @@ reboot-k8s:
 $ make apt-upgrade1
 ```
 
+## Provisioning RPi's
+
+**NOTE:** Reboots are required to pick up changes to `config.txt`.
+
+The RPi's that make use of PoE HATs require having their firmware configured so that the fans do not run so loud. These options have changed over the years in Raspian, and then Ubuntu 20.04 and now 22.04 LTS. ATM these options are like this on the RPi board:
+
+```
+root@k8s-02f:/boot/firmware# ls -l /boot/firmware/config.txt
+-rwxr-xr-x 1 root root 1693 Jul  9 18:13 /boot/firmware/config.txt
+```
+
+```
+[all]
+# Place "config.txt" changes (dtparam, dtoverlay, disable_overscan, etc.) in
+# this file. Please refer to the README file for a description of the various
+# configuration files on the boot partition.
+#dtoverlay=rpi-poe
+#dtparam=poe_fan_temp0=65000,poe_fan_temp0_hyst=5000
+#dtparam=poe_fan_temp1=67000,poe_fan_temp1_hyst=2000
+dtoverlay=rpi-poe-plus
+dtparam=poe_fan_temp0=73000,poe_fan_temp0_hyst=2000
+dtparam=poe_fan_temp1=75000,poe_fan_temp1_hyst=3000
+dtparam=poe_fan_temp2=78000,poe_fan_temp2_hyst=4000
+dtparam=poe_fan_temp3=82000,poe_fan_temp3_hyst=5000
+```
+
+In previous setups Ubuntu had files `syscfg.txt` and `usercfg.txt` which were `included` like so:
+
+```
+ubuntu@k8s-02a:~$ tail -10 /boot/firmware/config.txt
+
+# The following settings are "defaults" expected to be overridden by the
+# included configuration. The only reason they are included is, again, to
+# support old firmwares which don't understand the "include" command.
+
+enable_uart=1
+cmdline=cmdline.txt
+
+include syscfg.txt
+include usercfg.txt
+```
+But like I said, this setup has been phased out, apparently, by Ubuntu 22.04 LTS.
+
+### References
+- https://github.com/raspberrypi/firmware/issues/1607
+- https://raspberrypi.stackexchange.com/questions/98078/poe-hat-fan-activation-on-os-other-than-raspbian
+- https://forums.raspberrypi.com/viewtopic.php?t=316908
+- https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm/boot/dts/overlays/README#L3384
+- https://forums.raspberrypi.com/viewtopic.php?p=2038767
+
 ## Troubleshooting Tips
 
 ### Tip #1
