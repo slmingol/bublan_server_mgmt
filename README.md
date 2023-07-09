@@ -43,7 +43,7 @@ $ make apt-upgrade1
 
 ## Provisioning RPi's
 
-**NOTE:** Reboots are required to pick up changes to `config.txt`.
+**NOTE:** Reboots are required to pick up changes to the RPI firmware file: `config.txt`.
 
 The RPi's that make use of PoE HATs require having their firmware configured so that the fans do not run so loud. These options have changed over the years in Raspian, and then Ubuntu 20.04 and now 22.04 LTS. ATM these options are like this on the RPi board:
 
@@ -82,7 +82,37 @@ cmdline=cmdline.txt
 include syscfg.txt
 include usercfg.txt
 ```
-But like I said, this setup has been phased out, apparently, by Ubuntu 22.04 LTS.
+But this setup has been phased out, apparently, by Ubuntu 22.04 LTS. 
+
+To help manage these settings the `Makefile` in this repo includes a target to query all the RPi devices and show their current temperature and the state of the fan. The states of the fan can be [0-4], denoting which temperature mode they're in. You can see the state of the fan like so:
+
+```
+ubuntu@k8s-02a:~$ cat /sys/class/thermal/cooling_device0/cur_state
+0
+```
+
+The options around `dtparm` are what control the thresholds when the POE's fan will engage at specific temperatures and at what speed of the fan:
+
+```
+dtoverlay=rpi-poe-plus
+dtparam=poe_fan_temp0=73000,poe_fan_temp0_hyst=2000
+dtparam=poe_fan_temp1=75000,poe_fan_temp1_hyst=3000
+dtparam=poe_fan_temp2=78000,poe_fan_temp2_hyst=4000
+dtparam=poe_fan_temp3=82000,poe_fan_temp3_hyst=5000
+```
+
+Output from the `Makefile` target `chk-poe-fans`:
+
+ $ ▶ make chk-poe-fans
+k8s-02a.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=68.6'C  cur_state:  0
+k8s-02c.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=61.3'C  cur_state:  0
+k8s-02e.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=69.6'C  cur_state:  0
+k8s-02b.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=62.8'C  cur_state:  0
+k8s-02d.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=65.7'C  cur_state:  0
+k8s-02f.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=62.3'C  cur_state:  0
+k8s-02g.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=69.1'C  cur_state:  0
+pi-vpn.bub.lan   |  CHANGED  |  rc=0  |  (stdout)  temp=66.7'C  cur_state:  0
+```
 
 ### References
 - https://github.com/raspberrypi/firmware/issues/1607
