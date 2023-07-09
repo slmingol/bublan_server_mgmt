@@ -82,6 +82,7 @@ cmdline=cmdline.txt
 include syscfg.txt
 include usercfg.txt
 ```
+
 But this setup has been phased out, apparently, by Ubuntu 22.04 LTS. 
 
 To help manage these settings the `Makefile` in this repo includes a target to query all the RPi devices and show their current temperature and the state of the fan. The states of the fan can be [0-4], denoting which temperature mode they're in. You can see the state of the fan like so:
@@ -103,6 +104,7 @@ dtparam=poe_fan_temp3=82000,poe_fan_temp3_hyst=5000
 
 Output from the `Makefile` target `chk-poe-fans`:
 
+```
  $ ▶ make chk-poe-fans
 k8s-02a.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=68.6'C  cur_state:  0
 k8s-02c.bub.lan  |  CHANGED  |  rc=0  |  (stdout)  temp=61.3'C  cur_state:  0
