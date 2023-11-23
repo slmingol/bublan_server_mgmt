@@ -10,11 +10,11 @@ ansible_python_interpreter='/usr/bin/env python3'
 k8s-02[a:g].bub.lan
 pi-vpn.bub.lan
 watcher.bub.lan
-pi-hole[1:3].bub.lan
+pi-hole[1:4].bub.lan
 retropie2-eth.bub.lan
 rockpi-4cplus.bub.lan
 orangepi5.bub.lan
-orangepi5plus.bub.lan
+rpi5-01.bub.lan
 
 ## orientation
 ##
