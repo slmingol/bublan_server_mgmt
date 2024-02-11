@@ -9,10 +9,10 @@ ping:
 uptime:
 	ansible -i inv -m shell -a uptime all -o
 
-apt-upgrade1:
+apt-dnf-upgrade:
 	ansible-playbook -i inv -b update.yml
 
-apt-upgrade2:
+apt-upgrade:
 	ansible -i inv -m shell -a "apt update; apt upgrade" -b all
 
 reboot-k8s:

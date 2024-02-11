@@ -16,6 +16,9 @@ rockpi-4cplus.bub.lan
 orangepi5.bub.lan
 rpi5-01.bub.lan
 
+[fedora_desktops]
+little-willow.bub.lan
+
 ## orientation
 ##
 ##    01U - front to back
