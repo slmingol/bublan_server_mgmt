@@ -9,10 +9,16 @@ ping:
 uptime:
 	ansible -i inv -m shell -a uptime all -o
 
-apt-dnf-upgrade:
+apt-dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml
 
-apt-upgrade:
+apt-upgrade-pb:
+	ansible-playbook -i inv -b update.yml -l servers
+
+dnf-upgrade-pb:
+	ansible-playbook -i inv -b update.yml -l fedora_desktops
+
+apt-upgrade-shell:
 	ansible -i inv -m shell -a "apt update; apt upgrade" -b all
 
 reboot-k8s:
