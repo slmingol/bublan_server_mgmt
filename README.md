@@ -158,3 +158,13 @@ wget -O - apt.radxa.com/$DISTRO/public.key | sudo apt-key add -
 
 REF: https://forum.radxa.com/t/sudo-apt-update-get-error/13061/3
 
+### Tip #2
+```
+NEEDRESTART_MODE=a apt upgrade -y
+
+-or-
+
+NEEDRESTART_MODE=a apt-get dist-upgrade --yes
+
+REF: https://askubuntu.com/questions/1367139/apt-get-upgrade-auto-restart-services
+```
