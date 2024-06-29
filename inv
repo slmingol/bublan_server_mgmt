@@ -11,6 +11,7 @@ k8s-02[a:g].bub.lan
 pi-vpn.bub.lan
 watcher.bub.lan
 pi-hole[1:4].bub.lan
+retropie1-eth.bub.lan
 retropie2-eth.bub.lan
 rockpi-4cplus.bub.lan
 orangepi5.bub.lan
