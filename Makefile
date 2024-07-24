@@ -13,7 +13,7 @@ apt-dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml
 
 apt-upgrade-pb:
-	ansible-playbook -i inv -b update.yml -l servers
+	ansible-playbook -i inv -b update.yml -l servers:piservers
 
 dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml -l fedora_desktops
@@ -23,6 +23,9 @@ apt-upgrade-shell:
 
 reboot-k8s:
 	ansible -i inv -m shell -a reboot -b all -l k8s* -o
+
+print-hwinfo:
+	ansible -i inv -m shell -a 'sudo cat /sys/firmware/devicetree/base/model;echo' -l piservers -b all -o
 
 .SILENT:
 chk-poe-fans:

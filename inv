@@ -6,11 +6,12 @@ ansible_become_method=sudo
 #ansible_python_interpreter='/usr/bin/env python3'
 ansible_python_interpreter=auto_legacy_silent
 
-
 [servers]
+watcher.bub.lan
+
+[piservers]
 k8s-02[a:g].bub.lan
 pi-vpn.bub.lan
-watcher.bub.lan
 pi-hole[1:4].bub.lan
 retropie1-lv-eth.bub.lan
 retropie2-br-eth.bub.lan
