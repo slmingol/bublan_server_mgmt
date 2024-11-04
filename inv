@@ -22,6 +22,10 @@ rpi5-01.bub.lan
 [fedora_desktops]
 little-willow.bub.lan
 
+[pikvms]
+pikvm-v4plus-01.bub.lan # unagi
+pikvm-kvm-a3-02.bub.lan # little-willow
+
 ## orientation
 ##
 ##    01U - front to back
