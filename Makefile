@@ -18,6 +18,9 @@ apt-upgrade-pb:
 dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml -l fedora_desktops
 
+pikvm-upgrade-pb:
+	ansible-playbook -i inv -b update.yml -l pikvms
+
 apt-upgrade-shell:
 	ansible -i inv -m shell -a "apt update; apt upgrade" -b all
 

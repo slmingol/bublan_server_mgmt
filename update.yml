@@ -44,6 +44,48 @@
         test_command: uptime
       when: reboot_required_file.rc == 1
 
+- hosts: pikvms
+  become: true
+  become_user: root
+  gather_facts: no
+  pre_tasks:
+    - name: read/write
+      raw: ansible pikvms -m raw -a "mount -o remount,rw /" -b #--vault-password-file=vault.txt
+      delegate_to: localhost
+  tasks:
+    - name: upgrade all packages
+      raw: pikvm-update
+    - name: read only
+      raw: mount -o remount,ro /
+
+## - hosts: pikvms
+##   become: true
+##   pre_tasks:
+##     - name: switch to rw mode
+##       ansible.builtin.command: rw
+## 
+##   tasks:
+##     - name: Upgrade system
+##       community.general.pacman:
+##         update_cache: true
+##         upgrade: true
+##     # - name: Check if reboot is needed
+##     #   ansible.builtin.stat:
+##     #     path: /var/run/reboot-required
+##     #     register: reboot_required
+##     - name: Reboot
+##       ansible.builtin.reboot:
+##       # when: reboot_required.stat.exists
+##     # - name: Clear package cache (optional)
+##     #   ansible.builtin.file:
+##     #     path: /var/cache/pacman/pkg 
+##     #     state: absent
+## 
+##   post_tasks:
+##     - name: switch back to ro mode
+##       ansible.builtin.command: ro
+
 # REFs:
 # - https://www.cyberciti.biz/faq/ansible-apt-update-all-packages-on-ubuntu-debian-linux/
 # - https://www.unixsysadmin.com/ansible-patch-reboot/
+# - https://stackoverflow.com/questions/45154783/how-can-i-use-ansible-when-i-only-have-read-only-access
