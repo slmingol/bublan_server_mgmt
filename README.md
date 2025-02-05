@@ -192,3 +192,63 @@ NEEDRESTART_MODE=a apt-get dist-upgrade --yes
 
 REF: https://askubuntu.com/questions/1367139/apt-get-upgrade-auto-restart-services
 ```
+
+### Tip #3
+There's some additional "helper" Ansible playbooks in the repo, specifically geared to helping work with various versions of Python. For e.g.:
+
+```
+ansible-playbook -i inv -b python_ver.yml -l piservers_legacy -e ansible_python_interpreter=/usr/local/bin/python3.8 -vvv
+
+-or-
+
+ansible-playbook -i inv -b check_python.yml -l piservers_legacy -e ansible_python_interpreter=/usr/local/bin/python3.8 -vv
+```
+
+```
+$ ▶ ansible-playbook -i inv -b python_ver.yml -l piservers_legacy -e ansible_python_interpreter=/usr/local/bin/python3.8 -vv
+ansible-playbook [core 2.18.1]
+  config file = None
+  configured module search path = ['/Users/slm/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /opt/homebrew/Cellar/ansible/11.1.0_1/libexec/lib/python3.13/site-packages/ansible
+  ansible collection location = /Users/slm/.ansible/collections:/usr/share/ansible/collections
+  executable location = /opt/homebrew/bin/ansible-playbook
+  python version = 3.13.1 (main, Dec  3 2024, 17:59:52) [Clang 16.0.0 (clang-1600.0.26.4)] (/opt/homebrew/Cellar/ansible/11.1.0_1/libexec/bin/python)
+  jinja version = 3.1.5
+  libyaml = True
+No config file found; using defaults
+Skipping callback 'default', as we already have a stdout callback.
+Skipping callback 'minimal', as we already have a stdout callback.
+Skipping callback 'oneline', as we already have a stdout callback.
+
+PLAYBOOK: python_ver.yml ******************************************************************************************************************
+2 plays in python_ver.yml
+
+PLAY [all:!pikvms] ************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************
+task path: /Users/slm/dev/projects/bublan_server_mgmt/python_ver.yml:1
+ 1 README.md +                                                                                                                           X
+ok: [retropie2-br-eth.bub.lan]
+ok: [retropie1-lv-eth.bub.lan]
+
+TASK [Check Python version] ***************************************************************************************************************
+task path: /Users/slm/dev/projects/bublan_server_mgmt/python_ver.yml:5
+changed: [retropie2-br-eth.bub.lan] => {"changed": true, "cmd": ["/usr/local/bin/python3.8", "--version"], "delta": "0:00:00.011721", "end": "2025-02-05 00:45:46.278453", "msg": "", "rc": 0, "start": "2025-02-05 00:45:46.266732", "stderr": "", "stderr_lines": [], "stdout": "Python 3.8.12", "stdout_lines": ["Python 3.8.12"]}
+changed: [retropie1-lv-eth.bub.lan] => {"changed": true, "cmd": ["/usr/local/bin/python3.8", "--version"], "delta": "0:00:00.011616", "end": "2025-02-05 00:45:46.360467", "msg": "", "rc": 0, "start": "2025-02-05 00:45:46.348851", "stderr": "", "stderr_lines": [], "stdout": "Python 3.8.12", "stdout_lines": ["Python 3.8.12"]}
+
+TASK [Display Python version] *************************************************************************************************************
+task path: /Users/slm/dev/projects/bublan_server_mgmt/python_ver.yml:11
+ok: [retropie1-lv-eth.bub.lan] => {
+    "msg": "Python version is Python 3.8.12"
+}
+ok: [retropie2-br-eth.bub.lan] => {
+    "msg": "Python version is Python 3.8.12"
+}
+
+PLAY [pikvms] *****************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY RECAP ********************************************************************************************************************************
+retropie1-lv-eth.bub.lan   : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+retropie2-br-eth.bub.lan   : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```

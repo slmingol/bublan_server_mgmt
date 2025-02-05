@@ -1,0 +1,36 @@
+- hosts: all:!pikvms
+  become: true
+  become_user: root
+  tasks:
+    - name: Check Python version
+      command: "{{ ansible_python_interpreter }} --version"
+      register: python_version
+      vars:
+        ansible_python_interpreter: /usr/local/bin/python3.8
+
+    - name: Display Python version
+      debug:
+        msg: "Python version is {{ python_version.stdout }}"
+
+- hosts: pikvms
+  become: true
+  become_user: root
+  gather_facts: no
+  pre_tasks:
+    - name: read/write
+      raw: ansible -i inv pikvms -m raw -a "mount -o remount,rw /" -b #--vault-password-file=vault.txt
+        #delegate_to: localhost
+  tasks:
+    - name: Check Python version
+      command: "{{ ansible_python_interpreter }} --version"
+      register: python_version
+      vars:
+        ansible_python_interpreter: /usr/local/bin/python3.8
+
+    - name: Display Python version
+      debug:
+        msg: "Python version is {{ python_version.stdout }}"
+
+    - name: read only
+      raw: mount -o remount,ro /
+

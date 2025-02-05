@@ -1,0 +1,9 @@
+- hosts: all
+  tasks:
+    - name: Check Python version
+      command: "{{ ansible_python_interpreter }} --version"
+      register: python_version
+
+    - name: Display Python version
+      debug:
+        msg: "Python version is {{ python_version.stdout }}"

@@ -30,6 +30,9 @@ reboot-k8s:
 print-hwinfo:
 	ansible -i inv -m shell -a 'sudo cat /sys/firmware/devicetree/base/model;echo' -l piservers -b all -o
 
+print-python-ver:
+	ansible-playbook -i inv -b python_ver.yml
+
 .SILENT:
 chk-poe-fans:
 	ansible -i inv -m shell \
