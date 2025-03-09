@@ -21,11 +21,10 @@ pi-hole[1:2].bub.lan
 pi-hole[3:4].bub.lan
 rockpi-4cplus.bub.lan
 orangepi5.bub.lan
-rpi5-01.bub.lan
 
 [piservers_legacy]
-retropie1-lv-eth.bub.lan ansible_python_interpreter=/usr/local/bin/python3.8
-retropie2-br-eth.bub.lan ansible_python_interpreter=/usr/local/bin/python3.8
+#retropie1-lv-eth.bub.lan ansible_python_interpreter=/usr/local/bin/python3.8
+#retropie2-br-eth.bub.lan ansible_python_interpreter=/usr/local/bin/python3.8
 
 [piservers_legacy:vars]
 ansible_python_interpreter="/usr/local/bin/python3.8"
