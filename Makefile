@@ -9,6 +9,9 @@ ping:
 uptime:
 	ansible -i inv -m shell -a uptime all -o
 
+pikvm-upgrade-pb:
+	ansible-playbook -i inv -b update.yml -l pikvms
+
 apt-dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml
 
@@ -17,9 +20,6 @@ apt-upgrade-pb:
 
 dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml -l fedora_desktops
-
-pikvm-upgrade-pb:
-	ansible-playbook -i inv -b update.yml -l pikvms
 
 apt-upgrade-shell:
 	ansible -i inv -m shell -a "apt update; apt upgrade" -b all
@@ -36,6 +36,7 @@ print-python-ver:
 .SILENT:
 chk-poe-fans:
 	ansible -i inv -m shell \
-		-a 'vcgencmd measure_temp; echo "cur_state:" && cat /sys/class/thermal/cooling_device0/cur_state' -b all -l k8s*,pi-vpn* -o \
+		-a 'vcgencmd measure_temp; echo "cur_state:" && cat /sys/class/thermal/cooling_device0/cur_state' \
+		-b all -l k8s*,pi-vpn* -o \
 		| sed 's/\\n/ /g' \
 		| column -t
