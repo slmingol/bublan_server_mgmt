@@ -9,6 +9,9 @@ ansible_python_interpreter=auto_legacy_silent
 
 [servers]
 watcher.bub.lan
+#xcpng-hv-01.bub.lan     ansible_ssh_user=root
+xcpng-xo-01.bub.lan     ansible_ssh_user=xoa
+docker-host-01.bub.lan  ansible_ssh_user=slm
 
 [piservers:children]
 piservers_normal
@@ -21,6 +24,8 @@ pi-hole[1:2].bub.lan
 pi-hole[3:4].bub.lan
 rockpi-4cplus.bub.lan
 orangepi5.bub.lan
+piaware-01.bub.lan
+piaware-02-wifi.bub.lan
 
 [piservers_legacy]
 #retropie1-lv-eth.bub.lan ansible_python_interpreter=/usr/local/bin/python3.8
