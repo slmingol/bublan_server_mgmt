@@ -7,25 +7,34 @@ ansible_become_method=sudo
 #ansible_python_interpreter='/usr/bin/env python3'
 ansible_python_interpreter=auto_legacy_silent
 
-[servers]
+[servers:children]
+servers_core
+piservers_misc
+piservers_legacy
+piservers_pihole
+piservers_piaware
+piservers_k8s
+
+[servers_core]
 watcher.bub.lan
 #xcpng-hv-01.bub.lan     ansible_ssh_user=root
 xcpng-xo-01.bub.lan     ansible_ssh_user=xoa
 docker-host-01.bub.lan  ansible_ssh_user=slm
 
-[piservers:children]
-piservers_normal
-piservers_legacy
-
-[piservers_normal]
-k8s-02[a:g].bub.lan
+[piservers_misc]
 pi-vpn.bub.lan
-pi-hole[1:2].bub.lan
-pi-hole[3:4].bub.lan
 rockpi-4cplus.bub.lan
 orangepi5.bub.lan
-piaware-01.bub.lan
-piaware-02-wifi.bub.lan
+
+[piservers_pihole]
+pi-hole[1:2].bub.lan
+pi-hole[3:4].bub.lan
+
+[piservers_piaware]
+piaware-0[1:3].bub.lan
+
+[piservers_k8s]
+k8s-02[a:g].bub.lan
 
 [piservers_legacy]
 #retropie1-lv-eth.bub.lan ansible_python_interpreter=/usr/local/bin/python3.8

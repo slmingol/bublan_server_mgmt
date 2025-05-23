@@ -4,7 +4,7 @@ list:
 		| sort \
 		| egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 ping:
-	ansible -i inv -m ping all -o
+	ansible -i inv -m ping all -l '!pikvms' -o
 
 uptime:
 	ansible -i inv -m shell -a uptime all -o
@@ -16,7 +16,7 @@ apt-dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml
 
 apt-upgrade-pb:
-	ansible-playbook -i inv -b update.yml -l servers:piservers
+	ansible-playbook -i inv -b update.yml -l servers
 
 dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml -l fedora_desktops

@@ -34,7 +34,7 @@
     - name: read only
       raw: mount -o remount,ro /
 
-- hosts: servers:piservers:!piservers_legacy
+- hosts: servers:!piservers_legacy
   become: true
   become_user: root
   tasks:
