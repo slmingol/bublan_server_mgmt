@@ -12,6 +12,9 @@ uptime:
 pikvm-upgrade-pb:
 	ansible-playbook -i inv -b update.yml -l pikvms
 
+k8s-upgrade-pb:
+	ansible-playbook -i inv -b update.yml -l k8s*
+
 apt-dnf-upgrade-pb:
 	ansible-playbook -i inv -b update.yml
 
@@ -26,6 +29,9 @@ apt-upgrade-shell:
 
 reboot-k8s:
 	ansible -i inv -m shell -a reboot -b all -l k8s* -o
+
+list-hosts-inventory:
+	ansible-playbook -i inv -b update.yml --list-hosts
 
 print-hwinfo:
 	ansible -i inv -m shell -a 'sudo cat /sys/firmware/devicetree/base/model;echo' -l piservers -b all -o

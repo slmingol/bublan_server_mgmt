@@ -18,13 +18,14 @@ piservers_k8s
 [servers_core]
 watcher.bub.lan
 #xcpng-hv-01.bub.lan     ansible_ssh_user=root
-xcpng-xo-0[1:2].bub.lan     ansible_ssh_user=xoa
-docker-host-02.bub.lan  ansible_ssh_user=slm
+xcpng-xo-0[1:2].bub.lan  ansible_ssh_user=xoa
+docker-host-02.bub.lan   ansible_ssh_user=slm
 
 [piservers_misc]
 pi-vpn.bub.lan
 rockpi-4cplus.bub.lan
 orangepi5.bub.lan
+pi-tor-01.bub.lan
 
 [piservers_pihole]
 pi-hole[1:2].bub.lan
