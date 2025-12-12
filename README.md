@@ -3,18 +3,23 @@
 ## Contents
 
 ```
-$ tree
+ $ ▶ tree -L2
 .
 ├── LICENSE
 ├── Makefile
 ├── README.md
+├── asustor_storage.py
+├── check_python.yml
 ├── inv
+├── path
+│   └── to
+├── python_ver.yml
 ├── rack_equipment_info
 │   ├── hw_dimensions.txt
 │   └── navepoint_9u_rack.txt
 └── update.yml
 
-1 directory, 7 files
+4 directories, 10 files
 ```
 
 ## Options to drive
@@ -26,22 +31,25 @@ list:
                 | sort \
                 | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 ping:
-        ansible -i inv -m ping all -o
+        ansible -i inv -m ping all -l '!pikvms' -o
 
 uptime:
         ansible -i inv -m shell -a uptime all -o
+
+pikvm-upgrade-pb:
+        ansible-playbook -i inv -b update.yml -l pikvms
+
+k8s-upgrade-pb:
+        ansible-playbook -i inv -b update.yml -l k8s*
 
 apt-dnf-upgrade-pb:
         ansible-playbook -i inv -b update.yml
 
 apt-upgrade-pb:
-        ansible-playbook -i inv -b update.yml -l servers:piservers
+        ansible-playbook -i inv -b update.yml -l servers
 
 dnf-upgrade-pb:
         ansible-playbook -i inv -b update.yml -l fedora_desktops
-
-pikvm-upgrade-pb:
-        ansible-playbook -i inv -b update.yml -l pikvms
 
 apt-upgrade-shell:
         ansible -i inv -m shell -a "apt update; apt upgrade" -b all
@@ -49,13 +57,20 @@ apt-upgrade-shell:
 reboot-k8s:
         ansible -i inv -m shell -a reboot -b all -l k8s* -o
 
+list-hosts-inventory:
+        ansible-playbook -i inv -b update.yml --list-hosts
+
 print-hwinfo:
         ansible -i inv -m shell -a 'sudo cat /sys/firmware/devicetree/base/model;echo' -l piservers -b all -o
+
+print-python-ver:
+        ansible-playbook -i inv -b python_ver.yml
 
 .SILENT:
 chk-poe-fans:
         ansible -i inv -m shell \
-                -a 'vcgencmd measure_temp; echo "cur_state:" && cat /sys/class/thermal/cooling_device0/cur_state' -b all -l k8s*,pi-vpn* -o \
+                -a 'vcgencmd measure_temp; echo "cur_state:" && cat /sys/class/thermal/cooling_device0/cur_state' \
+                -b all -l k8s*,pi-vpn* -o \
                 | sed 's/\\n/ /g' \
                 | column -t
 ```
