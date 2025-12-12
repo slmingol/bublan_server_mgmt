@@ -33,7 +33,8 @@ pi-hole[3:4].bub.lan
 
 [piservers_piaware]
 piaware-01.bub.lan
-piaware-0[3:4].bub.lan
+#piaware-02.bub.lan
+piaware-0[3:6].bub.lan
 
 [piservers_k8s]
 k8s-02[a:g].bub.lan
