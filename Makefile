@@ -6,6 +6,9 @@ list:
 ping:
 	ansible -i inv -m ping all -l '!pikvms' -o
 
+ping-docker:
+	ansible -i inv -m ping all -l 'docker_hosts' -o
+
 uptime:
 	ansible -i inv -m shell -a uptime all -o
 

@@ -19,17 +19,18 @@ piservers_k8s
 watcher.bub.lan
 #xcpng-hv-01.bub.lan     ansible_ssh_user=root
 xcpng-xo-0[1:2].bub.lan  ansible_ssh_user=xoa
-docker-host-02.bub.lan   ansible_ssh_user=slm
+docker-host-01.bub.lan   ansible_ssh_user=slm
+docker-host-03.bub.lan   ansible_ssh_user=slm
 
 [piservers_misc]
 pi-vpn.bub.lan
 rockpi-4cplus.bub.lan
 orangepi5.bub.lan
 pi-tor-01.bub.lan
+birdnet-pi-01.bub.lan
 
 [piservers_pihole]
-pi-hole[1:2].bub.lan
-pi-hole[3:4].bub.lan
+pi-hole[1:4].bub.lan
 
 [piservers_piaware]
 piaware-01.bub.lan
@@ -52,6 +53,22 @@ little-willow.bub.lan
 [pikvms]
 pikvm-v4plus-01.bub.lan # unagi
 pikvm-kvm-a3-02.bub.lan # little-willow
+
+[docker_hosts_user_slm]
+docker-host-01.bub.lan   ansible_ssh_user=slm
+docker-host-03.bub.lan   ansible_ssh_user=slm
+#ghost-files.bub.lan      ansible_ssh_user=slm ansible_ssh_transfer_method=piped
+watcher.bub.lan
+
+[docker_hosts_user_pi]
+birdnet-pi-01.bub.lan
+pi-hole[2:4].bub.lan
+
+[docker_hosts_user_orangepi]
+orangepi5.bub.lan
+
+[docker_hosts_user_rock]
+rockpi-4cplus.bub.lan
 
 ## orientation
 ##

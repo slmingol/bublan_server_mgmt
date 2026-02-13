@@ -1,0 +1,52 @@
+- hosts: docker_hosts_user_slm
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Run docker compose up pull always for hawser stack (slm user)
+      ansible.builtin.shell:
+        #cmd: pwd
+        cmd: docker compose up -d --build --pull always
+      args:
+        chdir: /home/slm/docker_apps/hawser
+      become: true
+
+- hosts: docker_hosts_user_pi
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Run docker compose up pull always for hawser stack (pi user)
+      ansible.builtin.shell:
+        #cmd: pwd
+        cmd: docker-compose up -d --build --pull always
+      args:
+        chdir: /home/pi/docker_apps/hawser
+      become: true
+
+- hosts: docker_hosts_user_orangepi
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Run docker compose up pull always for hawser stack (orangepi user)
+      ansible.builtin.shell:
+        #cmd: pwd
+        cmd: docker compose up -d --build --pull always
+      args:
+        chdir: /home/orangepi/docker_apps/hawser
+      become: true
+
+- hosts: docker_hosts_user_rock
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Run docker compose up pull always for hawser stack (rock user)
+      ansible.builtin.shell:
+        #cmd: pwd
+        cmd: docker compose up -d --build --pull always
+      args:
+        chdir: /home/rock/docker_apps/hawser
+      become: true
+
