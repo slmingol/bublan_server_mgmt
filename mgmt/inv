@@ -54,6 +54,12 @@ little-willow.bub.lan
 pikvm-v4plus-01.bub.lan # unagi
 pikvm-kvm-a3-02.bub.lan # little-willow
 
+[docker_hosts:children]
+docker_hosts_user_slm
+docker_hosts_user_pi
+docker_hosts_user_orangepi
+docker_hosts_user_rock
+
 [docker_hosts_user_slm]
 docker-host-01.bub.lan   ansible_ssh_user=slm
 docker-host-03.bub.lan   ansible_ssh_user=slm

@@ -37,7 +37,7 @@ list-hosts-inventory:
 	ansible-playbook -i inv -b update.yml --list-hosts
 
 print-hwinfo:
-	ansible -i inv -m shell -a 'sudo cat /sys/firmware/devicetree/base/model;echo' -l piservers -b all -o
+	ansible -i inv -m shell -a 'sudo cat /sys/firmware/devicetree/base/model;echo' -l piservers_* -b all -o
 
 print-python-ver:
 	ansible-playbook -i inv -b python_ver.yml

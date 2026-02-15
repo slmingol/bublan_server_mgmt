@@ -1,0 +1,12 @@
+- hosts: docker_hosts
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Run docker compose up pull always for hawser stack ({{ ansible_ssh_user }} user)
+      ansible.builtin.shell:
+        cmd: docker compose up -d --build --pull always
+      args:
+        chdir: /home/{{ ansible_ssh_user }}/docker_apps/hawser
+      become: true
+

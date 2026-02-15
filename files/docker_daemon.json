@@ -1,0 +1,21 @@
+{
+"default-address-pools": [
+    {"base": "172.16.0.0/12", "size": 28}
+  ],
+  "insecure-registries": [
+	"nexus.bub.lan:8082",
+	"nexus.bub.lan:8083",
+	"nexus.bub.lan:8084",
+	"nexus.bub.lan:8085",
+	"nexus.bub.lan:8086",
+	"nexus.bub.lan:8087"
+  ],
+  "registry-mirrors": [
+	"http://nexus.bub.lan:8082",
+	"http://nexus.bub.lan:8083",
+	"http://nexus.bub.lan:8084",
+	"http://nexus.bub.lan:8085",
+	"http://nexus.bub.lan:8086",
+	"http://nexus.bub.lan:8087"
+  ]
+}

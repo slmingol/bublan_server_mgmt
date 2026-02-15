@@ -1,0 +1,18 @@
+---
+# REF: https://github.com/geerlingguy/internet-pi/tree/master
+
+- name: Configure Docker Hosts
+  hosts: docker_hosts
+  become: true
+
+  handlers:
+  - name: Include handlers.
+    ansible.builtin.import_tasks: tasks/handlers.yml
+
+  tasks:
+    - name: Setup Docker
+      ansible.builtin.import_tasks: tasks/docker.yml
+
+- name: Update Hawser
+  ansible.builtin.import_playbook: tasks/hawser_update.yml
+

@@ -1,0 +1,17 @@
+- name: Copy daemon.json to /etc/docker/.
+  ansible.builtin.copy:
+    src: files/docker_daemon.json
+    dest: /etc/docker/daemon.json
+    mode: 0644
+  become: true
+  notify:
+    - Restart docker
+
+- name: wait for docker service
+  service:
+    name: docker
+    state: started 
+  register: docker_service
+  until: docker_service.status.ActiveState == "active"
+  retries: 10
+  delay: 20
