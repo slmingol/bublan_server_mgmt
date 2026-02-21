@@ -16,3 +16,6 @@
 - name: Update Hawser
   ansible.builtin.import_playbook: tasks/hawser_update.yml
 
+- name: Update Newt
+  ansible.builtin.import_playbook: tasks/newt_update.yml
+
