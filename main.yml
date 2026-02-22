@@ -19,3 +19,6 @@
 - name: Update Newt
   ansible.builtin.import_playbook: tasks/newt_update.yml
 
+- name: Update Orb
+  ansible.builtin.import_playbook: tasks/orb_update.yml
+
