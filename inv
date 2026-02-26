@@ -1,0 +1,104 @@
+## set up ssh user name and path to python3 ##
+[all:vars]
+#ansible_user='ubuntu'
+ansible_become=yes
+ansible_become_method=sudo
+#ansible_python_interpreter='/usr/bin/python3'
+#ansible_python_interpreter='/usr/bin/env python3'
+ansible_python_interpreter=auto_legacy_silent
+
+[servers:children]
+servers_core
+piservers_misc
+piservers_legacy
+piservers_pihole
+piservers_piaware
+piservers_k8s
+
+[servers_core]
+watcher.bub.lan
+#xcpng-hv-01.bub.lan     ansible_ssh_user=root
+xcpng-xo-0[1:2].bub.lan  ansible_ssh_user=xoa
+docker-host-01.bub.lan   ansible_ssh_user=slm
+docker-host-03.bub.lan   ansible_ssh_user=slm
+
+[piservers_misc]
+pi-vpn.bub.lan
+rockpi-4cplus.bub.lan
+orangepi5.bub.lan
+pi-tor-01.bub.lan
+birdnet-pi-01.bub.lan
+
+[piservers_pihole]
+pi-hole[1:4].bub.lan
+
+[piservers_piaware]
+piaware-01.bub.lan
+#piaware-02.bub.lan
+piaware-0[3:6].bub.lan
+
+[piservers_k8s]
+k8s-02[a:g].bub.lan
+
+[piservers_legacy]
+#retropie1-lv-eth.bub.lan ansible_python_interpreter=/usr/local/bin/python3.8
+#retropie2-br-eth.bub.lan ansible_python_interpreter=/usr/local/bin/python3.8
+
+[piservers_legacy:vars]
+ansible_python_interpreter="/usr/local/bin/python3.8"
+
+[fedora_desktops]
+little-willow.bub.lan
+
+[pikvms]
+pikvm-v4plus-01.bub.lan # unagi
+pikvm-kvm-a3-02.bub.lan # little-willow
+
+[docker_hosts:children]
+docker_hosts_user_slm
+docker_hosts_user_pi
+docker_hosts_user_orangepi
+docker_hosts_user_rock
+docker_hosts_user_root
+
+[docker_hosts_user_slm]
+docker-host-01.bub.lan   ansible_ssh_user=slm
+docker-host-03.bub.lan   ansible_ssh_user=slm
+#ghost-files.bub.lan     ansible_ssh_user=slm ansible_ssh_transfer_method=piped
+watcher.bub.lan          ansible_ssh_user=slm
+
+[docker_hosts_user_pi]
+birdnet-pi-01.bub.lan    ansible_ssh_user=pi
+pi-hole[2:4].bub.lan     ansible_ssh_user=pi
+
+[docker_hosts_user_orangepi]
+orangepi5.bub.lan        ansible_ssh_user=orangepi
+
+[docker_hosts_user_rock]
+rockpi-4cplus.bub.lan    ansible_ssh_user=rock
+
+[docker_hosts_user_root]
+pi-tor-01.bub.lan        ansible_ssh_user=root
+
+[newt_docker_hosts]
+docker-host-01.bub.lan   ansible_ssh_user=slm
+orangepi5.bub.lan        ansible_ssh_user=orangepi
+rockpi-4cplus.bub.lan    ansible_ssh_user=rock
+docker-host-03.bub.lan   ansible_ssh_user=slm
+
+[orb_docker_hosts]
+docker-host-01.bub.lan   ansible_ssh_user=slm
+
+## orientation
+##
+##    01U - front to back
+##      - k8s-02c
+##      - pi-vpn
+##      - k8s-02a
+##      - k8s-02b
+##
+##    03U - left to right
+##      - k8s-02d
+##      - k8s-02e
+##      - k8s-02f
+##      - k8s-02g

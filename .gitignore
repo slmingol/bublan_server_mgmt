@@ -1,4 +1,2 @@
-inv
-config.yml
 .DS_Store
 mgmt/asustor_storage.py
