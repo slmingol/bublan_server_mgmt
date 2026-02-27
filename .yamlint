@@ -8,3 +8,7 @@ rules:
 
 ignore: |
   .github/workflows/stale.yml
+  venv/
+  .venv/
+  env/
+  ENV/

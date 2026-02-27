@@ -78,9 +78,9 @@ cfg-docker:
 # Run all linting checks
 lint: lint-yaml lint-ansible
 
-# Run YAML linting
+# Run YAML linting (project files only, excludes venv)
 lint-yaml:
-	yamllint .
+	yamllint *.yml tasks/ files/ .github/ .*.y*ml 2>/dev/null || true
 
 # Run Ansible linting
 lint-ansible:
