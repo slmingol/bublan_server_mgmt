@@ -1,11 +1,12 @@
-.PHONY: help list ping ping-docker cfg-docker uptime install-deps lint lint-yaml lint-ansible setup-precommit precommit-run
+.PHONY: help list ping ping-docker cfg-docker uptime install-deps venv lint lint-yaml lint-ansible setup-precommit precommit-run
 
 # Default target - show help
 help:
 	@echo "Bublan Server Management - Available targets:"
 	@echo ""
 	@echo "Setup & Installation:"
-	@echo "  install-deps       Install Python and Ansible dependencies"
+	@echo "  venv               Create virtual environment (recommended)"
+	@echo "  install-deps       Install dependencies to user directory"
 	@echo "  setup-precommit    Install and configure pre-commit hooks"
 	@echo ""
 	@echo "Connectivity Tests:"
@@ -35,13 +36,28 @@ list:
 	| sort \
 	| egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
-# Install Python dependencies
+# Install Python dependencies (user-level installation)
 install-deps:
 	@echo "Installing Python dependencies..."
-	pip3 install -r requirements.txt
+	pip3 install --user -r requirements.txt
 	@echo "Installing Ansible Galaxy collections..."
 	ansible-galaxy collection install -r requirements.yml
 	@echo "Dependencies installed successfully!"
+	@echo ""
+	@echo "Note: Packages installed to user directory (~/.local/bin)"
+	@echo "Ensure ~/.local/bin is in your PATH"
+
+# Create and setup virtual environment (recommended)
+venv:
+	@echo "Creating virtual environment..."
+	python3 -m venv venv
+	@echo "Installing dependencies in virtual environment..."
+	./venv/bin/pip install --upgrade pip
+	./venv/bin/pip install -r requirements.txt
+	./venv/bin/ansible-galaxy collection install -r requirements.yml
+	@echo ""
+	@echo "Virtual environment created successfully!"
+	@echo "Activate it with: source venv/bin/activate"
 
 # Ping all hosts (excluding pikvms)
 ping:
