@@ -16,11 +16,8 @@
         - stacks
         - validation
 
-    - name: Fail if stack directory does not exist
-      ansible.builtin.fail:
-        msg: >-
-          Stack directory /home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}
-          does not exist
+    - name: Skip host if stack directory does not exist
+      ansible.builtin.meta: end_host
       when: not stack_dir.stat.exists
       tags:
         - docker
@@ -37,11 +34,8 @@
         - stacks
         - validation
 
-    - name: Fail if docker-compose.yml does not exist
-      ansible.builtin.fail:
-        msg: >-
-          docker-compose.yml not found in
-          /home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}
+    - name: Skip host if docker-compose.yml does not exist
+      ansible.builtin.meta: end_host
       when: not compose_file.stat.exists
       tags:
         - docker
