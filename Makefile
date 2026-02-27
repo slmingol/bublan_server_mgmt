@@ -36,16 +36,22 @@ list:
 	| sort \
 	| egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
-# Install Python dependencies (user-level installation)
+# Install Python dependencies
+# Note: Use 'make venv' instead for virtual environment (recommended)
 install-deps:
-	@echo "Installing Python dependencies..."
-	pip3 install --user -r requirements.txt
-	@echo "Installing Ansible Galaxy collections..."
-	ansible-galaxy collection install -r requirements.yml
+	@if [ -n "$$VIRTUAL_ENV" ]; then \
+		echo "Virtual environment detected. Installing dependencies..."; \
+		pip install -r requirements.txt; \
+		ansible-galaxy collection install -r requirements.yml; \
+	else \
+		echo "No virtual environment detected."; \
+		echo "Installing to user directory (~/.local/bin)..."; \
+		pip3 install --user -r requirements.txt; \
+		ansible-galaxy collection install -r requirements.yml; \
+		echo ""; \
+		echo "Ensure ~/.local/bin is in your PATH"; \
+	fi
 	@echo "Dependencies installed successfully!"
-	@echo ""
-	@echo "Note: Packages installed to user directory (~/.local/bin)"
-	@echo "Ensure ~/.local/bin is in your PATH"
 
 # Create and setup virtual environment (recommended)
 venv:
