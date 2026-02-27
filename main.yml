@@ -4,6 +4,9 @@
 - name: Configure Docker Hosts
   hosts: docker_hosts
   become: true
+  tags:
+    - docker
+    - config
 
   handlers:
   - name: Include handlers.
@@ -12,13 +15,35 @@
   tasks:
     - name: Setup Docker
       ansible.builtin.import_tasks: tasks/docker.yml
+      tags:
+        - docker-setup
 
-- name: Update Hawser
-  ansible.builtin.import_playbook: tasks/hawser_update.yml
+- name: Update Hawser Stack
+  ansible.builtin.import_playbook: tasks/docker_stack_update.yml
+  vars:
+    target_hosts: docker_hosts
+    stack_name: hawser
+    stack_path: hawser
+  tags:
+    - stacks
+    - hawser
 
-- name: Update Newt
-  ansible.builtin.import_playbook: tasks/newt_update.yml
+- name: Update Newt Stack
+  ansible.builtin.import_playbook: tasks/docker_stack_update.yml
+  vars:
+    target_hosts: newt_docker_hosts
+    stack_name: newt
+    stack_path: newt
+  tags:
+    - stacks
+    - newt
 
-- name: Update Orb
-  ansible.builtin.import_playbook: tasks/orb_update.yml
-
+- name: Update Orb Stack
+  ansible.builtin.import_playbook: tasks/docker_stack_update.yml
+  vars:
+    target_hosts: orb_docker_hosts
+    stack_name: orb-net
+    stack_path: orb-net
+  tags:
+    - stacks
+    - orb

@@ -1,0 +1,66 @@
+---
+# Pre-commit hooks for Ansible playbook quality checks
+# Install: pip install pre-commit
+# Setup: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^.*\.(md|txt)$
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: ['--allow-multiple-documents']
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: check-merge-conflict
+      - id: check-executables-have-shebangs
+      - id: mixed-line-ending
+      - id: check-json
+      - id: pretty-format-json
+        args: ['--autofix', '--no-sort-keys']
+
+  # YAML linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.33.0
+    hooks:
+      - id: yamllint
+        args: ['-c', '.yamlint']
+
+  # Ansible linting
+  - repo: https://github.com/ansible/ansible-lint
+    rev: v6.22.1
+    hooks:
+      - id: ansible-lint
+        files: \.(yaml|yml)$
+        args:
+          - '--config-file'
+          - '.ansible-lint'
+          - '--profile'
+          - 'production'
+
+  # Python linting (for any Python scripts)
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+        language_version: python3
+        files: \.py$
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=120']
+        files: \.py$
+
+  # Check for secrets (security)
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: package.lock.json

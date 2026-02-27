@@ -1,0 +1,69 @@
+---
+# Consolidated Docker stack update playbook
+# This playbook updates Docker Compose stacks on specified hosts
+- name: Update Docker Compose Stacks
+  hosts: "{{ target_hosts }}"
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Verify Docker Compose stack directory exists
+      ansible.builtin.stat:
+        path: "/home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}"
+      register: stack_dir
+      tags:
+        - docker
+        - stacks
+        - validation
+
+    - name: Fail if stack directory does not exist
+      ansible.builtin.fail:
+        msg: "Stack directory /home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }} does not exist"
+      when: not stack_dir.stat.exists
+      tags:
+        - docker
+        - stacks
+        - validation
+
+    - name: Verify docker-compose.yml exists in stack directory
+      ansible.builtin.stat:
+        path: "/home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}/docker-compose.yml"
+      register: compose_file
+      tags:
+        - docker
+        - stacks
+        - validation
+
+    - name: Fail if docker-compose.yml does not exist
+      ansible.builtin.fail:
+        msg: "docker-compose.yml not found in /home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}"
+      when: not compose_file.stat.exists
+      tags:
+        - docker
+        - stacks
+        - validation
+
+    - name: Run docker compose up with pull always for {{ stack_name }} stack
+      ansible.builtin.command:
+        cmd: docker compose up -d --build --pull always
+        chdir: "/home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}"
+      register: docker_compose_result
+      changed_when: "'Creating' in docker_compose_result.stdout or 'Recreating' in docker_compose_result.stdout or 'Starting' in docker_compose_result.stdout"
+      failed_when: docker_compose_result.rc != 0
+      retries: 2
+      delay: 5
+      until: docker_compose_result.rc == 0
+      tags:
+        - docker
+        - stacks
+        - docker-compose
+        - update
+
+    - name: Display docker compose output
+      ansible.builtin.debug:
+        var: docker_compose_result.stdout_lines
+      when: docker_compose_result.stdout_lines is defined
+      tags:
+        - docker
+        - stacks
+        - debug
