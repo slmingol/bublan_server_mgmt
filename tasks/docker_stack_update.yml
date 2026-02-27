@@ -18,7 +18,9 @@
 
     - name: Fail if stack directory does not exist
       ansible.builtin.fail:
-        msg: "Stack directory /home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }} does not exist"
+        msg: >
+          Stack directory /home/{{ ansible_ssh_user }}/docker_apps/
+          {{ stack_path }} does not exist
       when: not stack_dir.stat.exists
       tags:
         - docker
@@ -27,7 +29,9 @@
 
     - name: Verify docker-compose.yml exists in stack directory
       ansible.builtin.stat:
-        path: "/home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}/docker-compose.yml"
+        path: >
+          /home/{{ ansible_ssh_user }}/docker_apps/
+          {{ stack_path }}/docker-compose.yml
       register: compose_file
       tags:
         - docker
@@ -36,7 +40,9 @@
 
     - name: Fail if docker-compose.yml does not exist
       ansible.builtin.fail:
-        msg: "docker-compose.yml not found in /home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}"
+        msg: >
+          docker-compose.yml not found in /home/{{ ansible_ssh_user }}/
+          docker_apps/{{ stack_path }}
       when: not compose_file.stat.exists
       tags:
         - docker
@@ -48,7 +54,10 @@
         cmd: docker compose up -d --build --pull always
         chdir: "/home/{{ ansible_ssh_user }}/docker_apps/{{ stack_path }}"
       register: docker_compose_result
-      changed_when: "'Creating' in docker_compose_result.stdout or 'Recreating' in docker_compose_result.stdout or 'Starting' in docker_compose_result.stdout"
+      changed_when: >
+        'Creating' in docker_compose_result.stdout or
+        'Recreating' in docker_compose_result.stdout or
+        'Starting' in docker_compose_result.stdout
       failed_when: docker_compose_result.rc != 0
       retries: 2
       delay: 5

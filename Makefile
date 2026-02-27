@@ -82,9 +82,9 @@ lint: lint-yaml lint-ansible
 lint-yaml:
 	yamllint *.yml tasks/ files/ .github/ .*.y*ml 2>/dev/null || true
 
-# Run Ansible linting
+# Run Ansible linting (exclude docker_stack_update.yml as it's a playbook)
 lint-ansible:
-	ansible-lint main.yml tasks/*.yml
+	ansible-lint main.yml tasks/docker.yml tasks/handlers.yml
 
 # Setup pre-commit hooks
 setup-precommit:

@@ -3,3 +3,7 @@ skip_list:
   - 'fqcn-builtins'
   - 'no-handler'
   - 'no-changed-when'
+
+# Specify file kinds to help ansible-lint pick correct schema
+kinds:
+  - playbook: "tasks/docker_stack_update.yml"

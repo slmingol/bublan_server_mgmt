@@ -9,8 +9,8 @@
     - config
 
   handlers:
-  - name: Include handlers.
-    ansible.builtin.import_tasks: tasks/handlers.yml
+    - name: Include handlers.
+      ansible.builtin.import_tasks: tasks/handlers.yml
 
   tasks:
     - name: Setup Docker
