@@ -1,2 +1,76 @@
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Ansible
+*.retry
+.ansible/
+*.vault
+vault_pass.txt
+vault_password
+.vault_pass
+
+# IDE / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# Logs
+*.log
+*.out
+
+# Temporary files
+*.tmp
+*.bak
+*.orig
+
+# Custom exclusions
 mgmt/asustor_storage.py
+
+# Ansible collections/roles (if installed locally)
+collections/
+roles/*/tests/
+roles/*/molecule/
+
+# SSH keys (never commit these!)
+*.pem
+*.key
+id_rsa*
+!*.pub
+
+# Environment files
+.env
+.env.local
+
+# Testing
+.tox/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local development overrides
+local_*.yml
+*_local.yml
+inventory_local
+inv_local

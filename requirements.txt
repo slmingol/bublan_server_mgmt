@@ -1,0 +1,6 @@
+# Python requirements for Ansible-based server management
+ansible>=2.10.0,<9.0.0
+ansible-lint>=6.0.0
+yamllint>=1.26.0
+jmespath>=1.0.0
+pre-commit>=3.0.0
