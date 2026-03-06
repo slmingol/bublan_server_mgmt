@@ -1,5 +1,18 @@
 # Bublan Server Management
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Ansible](https://img.shields.io/badge/Ansible-10.x-EE0000?logo=ansible&logoColor=white)](https://docs.ansible.com/)
+[![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![ansible-lint](https://img.shields.io/badge/ansible--lint-passing-success)](https://ansible-lint.readthedocs.io/)
+[![yamllint](https://img.shields.io/badge/yamllint-passing-success)](https://github.com/adrienverge/yamllint)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/slmingol/bublan_server_mgmt/graphs/commit-activity)
+[![GitHub last commit](https://img.shields.io/github/last-commit/slmingol/bublan_server_mgmt)](https://github.com/slmingol/bublan_server_mgmt/commits/main)
+[![GitHub repo size](https://img.shields.io/github/repo-size/slmingol/bublan_server_mgmt)](https://github.com/slmingol/bublan_server_mgmt)
+[![GitHub issues](https://img.shields.io/github/issues/slmingol/bublan_server_mgmt)](https://github.com/slmingol/bublan_server_mgmt/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/slmingol/bublan_server_mgmt)](https://github.com/slmingol/bublan_server_mgmt/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/slmingol/bublan_server_mgmt?style=social)](https://github.com/slmingol/bublan_server_mgmt/stargazers)
+
 Ansible playbooks for managing Docker hosts and various servers in the Bublan home lab environment.
 
 ## Overview
