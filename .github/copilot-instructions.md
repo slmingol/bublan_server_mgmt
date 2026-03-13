@@ -54,7 +54,7 @@ bublan_server_mgmt/
 - **inv**: Inventory with 10+ host groups (docker_hosts, piservers_*, servers_core)
 - **main.yml**: Orchestrates Docker config + Hawser/Newt/Orb stack updates
 - **tasks/docker.yml**: Manages `/etc/docker/daemon.json`, restarts Docker service
-- **tasks/docker_stack_update.yml**: Reusable playbook for `docker compose up -d` stack deployment
+- **tasks/docker_stack_update.yml**: Reusable playbook for `podman compose up -d` stack deployment
 
 ## Inventory Groups
 
@@ -77,7 +77,7 @@ ansible -i inv all:!pikvms -m shell -a "uptime"  # Exclude PiKVMs
 
 ### Stack Updates (via `tasks/docker_stack_update.yml`)
 Variables: `target_hosts`, `stack_name`, `stack_path`  
-Process: Check stack dir → Verify `docker-compose.yml` → `docker compose up -d` (retry on failure)
+Process: Check stack dir → Verify `docker-compose.yml` → `podman compose up -d` (retry on failure)
 
 **Stacks**: Hawser (all docker_hosts), Newt (newt_docker_hosts), Orb (orb_docker_hosts, path: orb-net)
 
@@ -92,7 +92,7 @@ Process: Check stack dir → Verify `docker-compose.yml` → `docker compose up 
 ## Known Issues
 
 - **Stack Directory Not Found**: Ensure `~/stackname/docker-compose.yml` exists on target hosts before running stack updates
-- **Docker Service Restart Hangs**: Retry logic handles most cases (3 retries, 5s delay). Manually check Docker if persistent.
+- **Docker Service Restart Hangs**: Retry logic handles most cases (3 retries, 5s delay). Manually check Podman if persistent.
 - **Pre-commit Autofixes**: Run `make precommit-run` before commit to avoid repeated commit cycles
 
 ## Configuration
