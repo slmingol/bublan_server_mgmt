@@ -1,4 +1,4 @@
-.PHONY: help list ping ping-docker cfg-docker uptime install-deps venv lint lint-yaml lint-ansible setup-precommit precommit-run
+.PHONY: help list ping ping-docker cfg-docker uptime install-deps venv lint lint-yaml lint-ansible setup-precommit precommit-run update-hawser update-newt update-orb
 
 # Default target - show help
 help:
@@ -16,6 +16,11 @@ help:
 	@echo ""
 	@echo "Configuration:"
 	@echo "  cfg-docker         Configure Docker hosts (run main playbook)"
+	@echo ""
+	@echo "Docker Stack Updates:"
+	@echo "  update-hawser      Update Hawser Docker stack"
+	@echo "  update-newt        Update Newt Docker stack"
+	@echo "  update-orb         Update Orb Docker stack"
 	@echo ""
 	@echo "Linting & Validation:"
 	@echo "  lint               Run all linting checks"
@@ -80,6 +85,18 @@ uptime:
 # Configure Docker hosts
 cfg-docker:
 	ansible-playbook -i inv main.yml
+
+# Update Hawser Docker stack
+update-hawser:
+	ansible-playbook -i inv main.yml --tags hawser
+
+# Update Newt Docker stack
+update-newt:
+	ansible-playbook -i inv main.yml --tags newt
+
+# Update Orb Docker stack
+update-orb:
+	ansible-playbook -i inv main.yml --tags orb
 
 # Run all linting checks
 lint: lint-yaml lint-ansible
